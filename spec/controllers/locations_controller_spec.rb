@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe LocationsController, type: :controller do
@@ -33,7 +35,7 @@ RSpec.describe LocationsController, type: :controller do
         get(:show, params: { id: 1 })
       end
 
-      it { is_expected.to eq('{"error":"No location with that id available"}')}
+      it { is_expected.to eq('{"error":"No location with that id available"}') }
 
       it 'response with a 404' do
         expect(response.status).to be(404)
