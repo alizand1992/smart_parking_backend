@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_192104) do
+ActiveRecord::Schema.define(version: 2020_05_06_211055) do
 
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
     t.string "desc", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "parking_spots", force: :cascade do |t|
+    t.string "number", null: false
+    t.string "aws_id", null: false
+    t.integer "location_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_parking_spots_on_location_id"
+    t.index ["number", "location_id"], name: "index_parking_spots_on_number_and_location_id"
   end
 
 end
