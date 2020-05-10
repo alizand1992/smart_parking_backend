@@ -23,6 +23,14 @@ class ParkingSpotsController < ApplicationController
     render json: { parking_spot_id: params[:id] }.to_json, status: :ok
   end
 
+  def available_spots_for_location
+    spots = ParkingSpot.where(location_id: [params[:location_id], 'NULL']).map do |spot|
+      remove_date_attributes(spot)
+    end
+
+    render json: spots.to_json, status: :ok
+  end
+
   private
 
   def remove_date_attributes(spot)

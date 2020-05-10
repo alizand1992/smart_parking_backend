@@ -36,6 +36,14 @@ class LocationsController < ApplicationController
     render json: { errors: e.message }.to_json, status: :internal_server_error
   end
 
+  def link_parking_spot
+
+  end
+
+  def unlink_parking_spot
+
+  end
+
   private
 
   def remove_date_attributes(loc)
