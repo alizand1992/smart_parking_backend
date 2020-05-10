@@ -13,9 +13,27 @@ class LocationsController < ApplicationController
 
     render json: location.to_json, status: :ok
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'No location with that id available' }, status: :not_found
+    render json: { error: 'No location with that id available' }.to_json, status: :not_found
   rescue StandardError => e
-    render json: { error: e.message }, status: :internal_server_error
+    render json: { error: e.message }.to_json, status: :internal_server_error
+  end
+
+  def new
+    render json: { authenticity_token: form_authenticity_token }.to_json, status: :ok
+  end
+
+  def create
+    loc = Location.new({ name: params[:name], desc: params[:desc] })
+
+    if loc.name.blank? || loc.desc.blank?
+      raise 'Name and Description cannot be blank'
+    end
+
+    loc.save!
+
+    render json: loc.to_json, status: :ok
+  rescue => e
+    render json: { errors: e.message }.to_json, status: :internal_server_error
   end
 
   private
