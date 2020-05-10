@@ -9,8 +9,18 @@ class ParkingSpotsController < ApplicationController
     render json: spots.to_json, status: :ok
   end
 
+  def all_parking_spots
+    spots = ParkingSpot.all.map { |spot| remove_date_attributes(spot) }
+
+    render json: spots.to_json, status: :ok
+  end
+
+  def sync
+    render json: { success: 'ok' }.to_json, status: :ok
+  end
+
   def show
-    render json: { parking_spot_id: params[:id] }.to_json
+    render json: { parking_spot_id: params[:id] }.to_json, status: :ok
   end
 
   private
