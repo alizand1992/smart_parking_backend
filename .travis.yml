@@ -11,5 +11,3 @@ jobs:
   include:
     - name: "Test"
       script: bundle exec rspec
-    - name: "Rubocop"
-      script: bundle exec rubocop ./app ./spec -c .rubocop --force-exclusion
