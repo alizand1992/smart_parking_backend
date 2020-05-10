@@ -24,7 +24,7 @@ class ParkingSpotsController < ApplicationController
   end
 
   def available_spots_for_location
-    spots = ParkingSpot.where(location_id: [params[:location_id], 'NULL']).map do |spot|
+    spots = ParkingSpot.where(location_id: [params[:location_id], nil]).map do |spot|
       remove_date_attributes(spot)
     end
 
