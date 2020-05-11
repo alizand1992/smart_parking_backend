@@ -37,11 +37,19 @@ class LocationsController < ApplicationController
   end
 
   def link_parking_spot
+    spot = ParkingSpot.find(params[:spot_id])
+    spot.location_id = params[:location_id]
+    spot.save!
 
+    render json: remove_date_attributes(spot).to_json, status: :ok
   end
 
   def unlink_parking_spot
+    spot = ParkingSpot.find(params[:spot_id])
+    spot.location_id = nil
+    spot.save!
 
+    render json: remove_date_attributes(spot).to_json, status: :ok
   end
 
   private
