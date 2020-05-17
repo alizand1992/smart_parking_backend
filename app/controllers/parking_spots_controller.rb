@@ -2,7 +2,7 @@
 
 class ParkingSpotsController < ApplicationController
   def index
-    spots = ParkingSpot.where(location_id: params[:location_id]).map do |spot|
+    spots = ParkingSpot.where(location_id: params['location_id']).map do |spot|
       remove_date_attributes(spot)
     end
 
@@ -16,6 +16,14 @@ class ParkingSpotsController < ApplicationController
   end
 
   def sync
+    params["parkingSpots"].each do |s|
+      next if ParkingSpot.find_by(aws_id: s["id"]).present?
+      spot = ParkingSpot.new
+      spot.aws_id = s["id"]
+      spot.number = s["id"]
+      spot.save!
+    end
+
     render json: { success: 'ok' }.to_json, status: :ok
   end
 

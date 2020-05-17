@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get '/parking_spots/:location_id', to: 'parking_spots#index'
   get '/parking_spots/status/:id', to: 'parking_spots#show'
   get '/parking_spots', to: 'parking_spots#all_parking_spots'
-  get '/parking_spots/sync', to: 'parking_spots#sync'
+  post '/parking_spots/sync', to: 'parking_spots#sync'
   get '/parking_spots/available/:location_id', to: 'parking_spots#available_spots_for_location'
 end
